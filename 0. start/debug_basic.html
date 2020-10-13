@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="counter">0</div>
+    <button id="increase">+</button>
+    <button id="decrease">-</button>
+
+    <script>
+        const $counter = document.getElementById('counter-x');
+        const $increase = document.getElementById('increase');
+        const $decrease = document.getElementById('decrease');
+
+        let num = 0;
+        const render = function () {
+            $counter.innerHTML = num;
+        };
+
+        $increase.onclick = function () {
+            num++;
+            console.log('increase 버튼 클릭: ', num);
+            render();
+        };
+
+        $decrease.onclick = function () {
+            num--;
+            console.log('decrease 버튼 클릭: ', num);
+            render();
+        };
+    </script>
+</body>
+</html>
