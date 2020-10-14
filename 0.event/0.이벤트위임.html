@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #fruits {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+        }
+        #fruits li {
+            width: 100px;
+            cursor: pointer;
+        }
+        #fruits .active {
+            color: red;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul id="fruits">
+            <li id="apple" class="active">Apple</li>
+            <li id="banana">Banana</li>
+            <li id="orange">Orange</li>
+        </ul>
+    </nav>
+    <div>선택된 네비게이션 아이템: <em class="msg">apple</em></div>
+
+    <script>
+        const $fruits = document.getElementById('fruits');
+        const $msg = document.querySelector('.msg');
+
+        function activate(event) {
+            [...$fruits.children].forEach($fruit => {
+               $fruit.classList.toggle('active', $fruit === event.target);
+               $msg.textContent = event.target.id;
+            });
+        }
+
+        //이벤트 위임: 상위요소는 하위요소의 이벤트를 캐치할수 있다.
+        $fruits.onclick = activate;
+    </script>
+</body>
+</html>
