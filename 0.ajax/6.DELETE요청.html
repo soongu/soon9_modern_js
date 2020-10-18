@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<pre></pre>
+<script>
+    const xhr = new XMLHttpRequest();
+    xhr.open('DELETE', 'http://localhost:5000/todos/4');
+
+    xhr.send();
+
+    xhr.onload = () => {
+        if (xhr.status === 200) {
+            document.querySelector('pre').textContent = xhr.response;
+        } else {
+            console.error("Error", xhr.status, xhr.statusText);
+        }
+    };
+</script>
+
+</body>
+</html>

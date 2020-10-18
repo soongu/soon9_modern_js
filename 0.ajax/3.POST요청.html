@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <pre></pre>
+    <script>
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:5000/todos');
+
+        //post요청의 경우 서버로 전송할 데이터가 있어야 함
+        const newData = {
+            id: 4,
+            content: 'Java',
+            completed: false
+        };
+
+        //해당 데이터를 어떤 형태로 서버로 보낼것인지 요청헤더에 지정
+        xhr.setRequestHeader('content-type', 'application/json');
+
+        //데이터와 함께 서버로 전송
+        xhr.send(JSON.stringify(newData));
+
+        xhr.onload = () => {
+            if (xhr.status === 200 || xhr.status === 201) {
+                document.querySelector('pre').textContent = xhr.response;
+            } else {
+                console.error("Error", xhr.status, xhr.statusText);
+            }
+        };
+    </script>
+
+</body>
+</html>

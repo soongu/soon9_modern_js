@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    //XMLHttpRequest객체 생성
+    const xhr = new XMLHttpRequest();
+
+    //http요청 초기화
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/todos/1');
+
+    //http 요청 전송
+    xhr.send();
+
+    xhr.onload = () => {
+
+        // 정상적으로 응답되었다면 response 프로퍼티에 서버의 응답결과가 담겨있다.
+        if (xhr.status === 200) {
+            console.log(JSON.parse(xhr.response));
+        } else {
+            console.error('Error', xhr.status, xhr.statusText);
+        }
+    };
+</script>
+</body>
+</html>

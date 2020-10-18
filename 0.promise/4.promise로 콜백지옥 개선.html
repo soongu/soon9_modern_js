@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    //promise를 사용한 처리
+    const promiseGet = (url) => {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', url);
+            xhr.send();
+
+            xhr.onload = () => {
+                if (xhr.status === 200) {
+                    resolve(JSON.parse(xhr.response));
+                } else {
+                    reject(`${xhr.status} ${xhr.statusText}`);
+                }
+            }
+        });
+    };
+
+    const url = 'http://localhost:5000/todos';
+
+    /*
+   # 상황:
+   /posts/ -> 게시판
+   /users/ -> 회원목록
+   /friends/ -> 친구목록
+
+   # 설정: 게시판의 3번 게시물의 작성자아이디를 얻어와서 그 작성자의 정보를 얻어온 후
+   친구목록을 뒤져 3번친구를 알아내야 한다면?
+    */
+
+    promiseGet(`${url}/posts/3`)
+        .then(article => promiseGet(`${url}/users/${article.userId}`))
+        .then(friendsInfo => promiseGet(`${url}/friends/${friendsInfo[2].userId}`))
+        .then(bestFriend => console.log(bestFriend))
+        .catch(err => console.log(err));
+
+    /*
+    get(`${url}/posts/3`, (article) => { //1번째 콜백: 3번게시물 정보 받아오기
+        get(`${url}/users/${article.userId}`, (friendsInfo) => { //2번째 콜백: 그 게시물의 작성자 아이디 받아오기
+            get(`${url}/friends/${friendsInfo[2].userId}`, (bestFriend) => { //3번째 콜백: 친구정보리스트에서 3번째 친구의 아이디로 정보가져오기
+                console.log(bestFriend);
+            });
+        });
+    });
+    */
+
+
+
+</script>
+</body>
+</html>
