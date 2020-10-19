@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+
+    const request = {
+        get(url) {
+            return fetch(url);
+        },
+        post(url, payload) {
+            return fetch(url, {
+                method: 'POST',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+        },
+        patch(url, payload) {
+            return fetch(url, {
+                method: 'PATCH',
+                headers: { 'content-type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+        },
+        delete(url) {
+            return fetch(url, { method: 'DELETE' });
+        }
+    };
+
+    //get요청
+    const url = 'http://localhost:5000/todos';
+    request.get(`${url}`)
+        .then(res => res.json())
+        .then(todos => console.log('get:',todos))
+        .catch(err => console.error(err));
+
+    //post
+    /*
+    request.post(`${url}`, {
+        "id": 4,
+        "content": "MySQL",
+        "completed": true
+    }).then(res => res.json())
+      .then(todos => console.log(todos))
+      .catch(err => console.error(err));
+
+     */
+
+    //patch
+    request.patch(`${url}/4`, {
+        "content": "Oracle",
+        "completed": false
+    }).then(res => res.json())
+        .then(todos => console.log(todos))
+        .catch(err => console.error(err));
+
+    //delete
+    request.delete(`${url}/4`)
+        .then(res => res.json())
+        .then(todos => console.log(todos))
+        .catch(err => console.error(err));
+</script>
+</body>
+</html>
